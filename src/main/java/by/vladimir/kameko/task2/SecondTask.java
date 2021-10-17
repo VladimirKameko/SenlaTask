@@ -12,18 +12,18 @@ import java.util.Scanner;
 public class SecondTask {
 
 	public static void main(String[] args) {
-
+		SecondTask st = new SecondTask();
 		System.out.println("Enter an integer");
 		Scanner sc = new Scanner(System.in);
 		String input = sc.next();
 
-		while (!checkNum(input)) {
+		while (!st.checkNum(input)) {
 			input = sc.next();
 		}
 
 	}
 
-	public static boolean checkNum(String input) {
+	public boolean checkNum(String input) {
 
 		try {
 			long q = Long.parseLong(input);
@@ -35,16 +35,16 @@ public class SecondTask {
 		return true;
 	}
 
-	public static void findTheDivisors(long num) {
+	public void findTheDivisors(long num) {
 
-		for (long i = 2; i < Math.sqrt(num); i++) {
+		for (long i = 2; i <= num; i++) {
 
 			if (num % i == 0) {
 				System.out.println(i + " ");
 				num = num / i;
+				findTheDivisors(num);
+				break;
 			}
 		}
-
-		System.out.println(num);
 	}
 }
