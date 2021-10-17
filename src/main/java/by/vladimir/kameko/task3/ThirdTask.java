@@ -16,43 +16,54 @@ import java.util.stream.Stream;
 
 
 public class ThirdTask {
+
+	public static final String REGEX_VOWELS = "[аеёиоуэюя]";
+	public static final String REGEX_NOT_VOWELS = "[^аеёиоуэюя]";
+	public static final String REGEX_NOT_LETTERS = "[^а-яёА-ЯЁ ]";
+
 	public static void main(String[] args) {
 		System.out.println("Enter text");
 		Scanner sc = new Scanner(System.in);
-		Pattern pattern = Pattern.compile("[аеёиоуэюя]");
+		String inputData = sc.nextLine();
 
+		String[] words = inputData.split(" ");
 
-		String line = sc.nextLine();
-		List<String> result = new ArrayList<>();
-		List<String> finalResult = new ArrayList<>();
-
-
-		String[] str = line.split(" ");
-
-		Stream.of(str)
-
+		Map<String, Integer> mapWithVowelsNumber = Stream.of(words)
 				.distinct()
-				.map(q -> q = q.replaceAll("[^а-яёА-ЯЁ ]", ""))
-				.collect(Collectors.toMap(p -> p, i -> i.replaceAll("[аеёиоуэюя]", "").length()))
+				.map(q -> q = q.replaceAll(REGEX_NOT_LETTERS, ""))
+				.collect(Collectors.toMap(p -> p, i -> i.replaceAll(REGEX_NOT_VOWELS, "").length()));
+
+		List<String> wordsListSortedByVowelsNumber = new ArrayList<>();
+		mapWithVowelsNumber
 				.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-				.forEach(e -> result.add(e.getKey()));
+				.forEach(e -> wordsListSortedByVowelsNumber.add(e.getKey()));
 
+		List<String> finalResult = new ArrayList<>();
+		new ThirdTask().uppersCaseFirstVowel(finalResult, wordsListSortedByVowelsNumber);
 
-		for (String s : result) {
-			int i = 0;
-			Matcher m = pattern.matcher(s);
-			if (m.find()) {
-				i = m.start();
-				System.out.println(i);
-			}
-
-			if (i >= 0) {
-				s = s.replaceFirst("[аеёиоуэюя]", Character.toString(s.charAt(i)).toUpperCase());
-				finalResult.add(s);
-			}
-
-		}
 		System.out.println(finalResult);
+	}
+
+	private void uppersCaseFirstVowel(List<String> finalResult, List<String> wordsListSortedByVowelsNumber) {
+		int pos;
+		for (String word : wordsListSortedByVowelsNumber) {
+			pos = 0;
+			pos = getFirstVowelPosition(word, pos);
+
+			if (pos >= 0) {
+				word = word.replaceFirst(REGEX_VOWELS, Character.toString(word.charAt(pos)).toUpperCase());
+				finalResult.add(word);
+			}
+		}
+	}
+
+	private int getFirstVowelPosition(String word, int pos) {
+		Pattern pattern = Pattern.compile(REGEX_VOWELS);
+		Matcher matcher = pattern.matcher(word);
+		if (matcher.find()) {
+			pos = matcher.start();
+		}
+		return pos;
 	}
 
 

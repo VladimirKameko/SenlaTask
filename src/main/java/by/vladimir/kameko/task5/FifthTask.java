@@ -21,26 +21,7 @@ public class FifthTask {
 	private static Item[] items = {
 			new Item("кольцо1", 2500, 1),
 			new Item("подвеска", 2000, 3),
-			new Item("ожерелье", 4000, 4)
-
-			/*new Item("кольцо1", 2500, 1),
-			new Item("кольцо2", 2500, 1),
-			new Item("подвеска", 2000, 3),
 			new Item("ожерелье", 4000, 4),
-			new Item("ожерелье", 4000, 4),
-			new Item("ожерелье", 4000, 4),
-			new Item("ожерелье", 4000, 4),
-			new Item("подвеска", 2000, 3),
-			new Item("подвеска", 2000, 3),
-			new Item("подвеска", 2000, 3),
-			new Item("подвеска", 2000, 3),
-			new Item("подвеска", 2000, 3),
-			new Item("кольцо", 2500, 1),
-			new Item("кольцо", 2500, 1),
-			new Item("кольцо", 2500, 1),
-			new Item("кольцо", 2500, 1),
-			new Item("кольцо", 2500, 1)*/
-
 	};
 
 	public static void main(String[] args) {
